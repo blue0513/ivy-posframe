@@ -168,6 +168,11 @@ When 0, no border is showed."
   :group 'ivy-posframe
   :type 'string)
 
+(defcustom ivy-posframe-force-redisplay nil
+  "Force to `redisplay' when displaying the posframe."
+  :group 'ivy-posframe
+  :type 'boolean)
+
 (defface ivy-posframe
   '((t (:inherit default)))
   "Face used by the ivy-posframe."
@@ -223,7 +228,8 @@ This variable is useful for `ivy-posframe-read-action' .")
        :min-width (or ivy-posframe-min-width (round (* (frame-width) 0.62)))
        :internal-border-width ivy-posframe-border-width
        :internal-border-color (face-attribute 'ivy-posframe-border :background)
-       :override-parameters ivy-posframe-parameters))))
+       :override-parameters ivy-posframe-parameters))
+    (if ivy-posframe-force-redisplay (redisplay))))
 
 (defun ivy-posframe-display (str)
   (let ((func (intern (format "ivy-posframe-display-at-%s"
